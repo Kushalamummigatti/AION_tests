@@ -1,0 +1,8 @@
+{
+    "problem_type": "classification",
+    "modelVersion": "1",
+    "target_feature": "derived_qos",
+    "targetPath": "AION_733_lan_class_drift",
+    "ipAddress": "127.0.0.1",
+    "portNo": "8094"
+}

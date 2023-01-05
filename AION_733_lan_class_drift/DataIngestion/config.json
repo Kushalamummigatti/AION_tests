@@ -1,0 +1,16 @@
+{
+    "problem_type": "classification",
+    "modelVersion": "1",
+    "target_feature": "derived_qos",
+    "selected_features": [
+        "retransmission",
+        "signalStrength",
+        "bytesReceived",
+        "bytesSent",
+        "errorReceived",
+        "errorSent",
+        "Noise",
+        "predicted_qos"
+    ],
+    "targetPath": "AION_733_lan_class_drift"
+}

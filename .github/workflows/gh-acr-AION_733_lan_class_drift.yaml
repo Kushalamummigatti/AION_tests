@@ -1,0 +1,39 @@
+name: gh-acr-AION_733_lan_class_drift
+on: 
+  push:
+    branches: main
+    paths: AION_733_lan_class_drift/**
+  workflow_dispatch:
+jobs:
+  gh-acr-build-push:
+    runs-on: ubuntu-latest 
+    steps:
+    - name: 'checkout action'
+      uses: actions/checkout@main
+    
+    - name: 'azure login'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: 'build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run:  |
+        docker build ./AION_733_lan_class_drift/ModelMonitoring -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/modelmonitoring:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/modelmonitoring:AION_733_lan_class_drift
+        docker build ./AION_733_lan_class_drift/DataIngestion -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/dataingestion:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/dataingestion:AION_733_lan_class_drift		
+        docker build ./AION_733_lan_class_drift/DataTransformation -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/datatransformation:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/datatransformation:AION_733_lan_class_drift
+        docker build ./AION_733_lan_class_drift/FeatureEngineering -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/featureengineering:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/featureengineering:AION_733_lan_class_drift
+        docker build ./AION_733_lan_class_drift/ModelRegistry -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/modelregistry:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/modelregistry:AION_733_lan_class_drift		
+        docker build ./AION_733_lan_class_drift/ModelServing -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/modelserving:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/modelserving:AION_733_lan_class_drift		
+        docker build ./AION_733_lan_class_drift/ModelTraining_XGBClassifier_MLBased -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/modeltraining_xgbclassifier_mlbased:AION_733_lan_class_drift
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/modeltraining_xgbclassifier_mlbased:AION_733_lan_class_drift

@@ -1,0 +1,8 @@
+{
+    "problem_type": "classification",
+    "modelVersion": "1",
+    "targetPath": "AION_733_lan_class_drift",
+    "models": [
+        "XGBClassifier_MLBased"
+    ]
+}
